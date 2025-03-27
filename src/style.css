@@ -1,0 +1,87 @@
+/* 🎨 Estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #121212; /* Fondo oscuro */
+  color: #fff;
+  text-align: center;
+}
+
+/* 🏠 Contenedor principal */
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  width: 380px;
+}
+
+/* 📆 Hora y fecha */
+#time {
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* 🔄 Contenedores de conversión */
+.converter1, .converter2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.converter1 input, .converter2 input {
+  width: 120px; /* Inputs más anchos */
+  padding: 10px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  outline: none;
+  transition: background 0.3s ease-in-out;
+}
+
+/* ✨ Placeholder y estilos del input */
+input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 🔗 Estilos de los enlaces */
+a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #ffcc00;
+}
+
+/* 🌟 Logos */
+.logo {
+  width: 50px;
+  margin: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
