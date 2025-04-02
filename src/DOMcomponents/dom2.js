@@ -1,4 +1,4 @@
-import { convert2 } from "../components/function2";
+import { convertCopToUsd } from "../components/function2";
 
 export const values2 = () => {
     const converter2 = document.querySelector('.converter2');
@@ -13,7 +13,7 @@ export const values2 = () => {
         if (isNaN(value) || value < 0) {
             result.value = "0";
         } else {
-            const convertedValue = await convert2(value);
+            const convertedValue = await convertCopToUsd(value);
             result.value = convertedValue; // Muestra el resultado
         }
     };
