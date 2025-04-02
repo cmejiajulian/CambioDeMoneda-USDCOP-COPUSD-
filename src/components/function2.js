@@ -1,7 +1,7 @@
 export const convert2 =async (value)=>{
 
     try{
-        const answer = await fetch("https://v6.exchangerate-api.com/v6/5047b68756ab86b1930cc413/latest/USD");
+        const answer = await fetch("https://v6.exchangerate-api.com/v6/6dca3c982d2ce4a5ea67c1b5/latest/USD");
         if(!answer.ok) {
             throw new Error (`Error en la API:${answer.status}`);
         }
