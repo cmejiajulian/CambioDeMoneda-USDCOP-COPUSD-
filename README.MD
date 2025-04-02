@@ -1,79 +1,133 @@
-💰 Conversor de Moneda - USD a COP
+📌 Descripción
 
-Este proyecto es una aplicación web que permite convertir dólares estadounidenses (USD) a pesos colombianos (COP) en tiempo real, utilizando la API de ExchangeRate-API. Además, muestra la fecha y la hora actual en la interfaz de usuario.
+Esta es una aplicación web que permite convertir entre dólares estadounidenses (USD) y pesos colombianos (COP) en tiempo real, utilizando una API de tasas de cambio. Además, muestra la fecha y hora actual de manera dinámica.
 
 🚀 Características
 
-✅ Conversión en tiempo real de USD a COP.✅ Modo oscuro para una mejor experiencia visual.✅ Interfaz dinámica con actualización automática.✅ Manejo de errores si la API falla.
+Conversión de USD a COP y COP a USD.
+
+Interfaz moderna con modo oscuro.
+
+Actualización automática de la hora y fecha.
+
+Uso de Vite para un desarrollo rápido y eficiente.
+
+Uso de Fetch API para obtener datos en tiempo real.
 
 🛠️ Tecnologías Utilizadas
 
-Vite + JavaScript 🚀
+HTML, CSS y JavaScript (estructura, estilos y funcionalidad)
 
-HTML + CSS 🎨
+Vite (gestor de módulos y bundler)
 
-Fetch API para obtener la tasa de cambio en tiempo real.
+Exchange Rate API (obtención de tasas de cambio)
 
-Manejo de eventos en el DOM.
+📂 Estructura del Proyecto
 
-📥 Instalación y Uso
-
-1️⃣ Clonar el Repositorio
-
-git clone https://github.com/tu-usuario/conversor-usd-cop.git
-cd conversor-usd-cop
-
-2️⃣ Instalar Dependencias
-
-npm install
-
-3️⃣ Iniciar la Aplicación
-
-npm run dev
-
-Abre tu navegador y accede a http://localhost:5173.
+📁 currency-converter-app
+│── 📁 src
+│   ├── 📁 components
+│   │   ├── function1.js  # Conversión de USD a COP
+│   │   ├── function2.js  # Conversión de COP a USD
+│   ├── 📁 DOMcomponents
+│   │   ├── dom1.js  # Manipulación del DOM para USD a COP
+│   │   ├── dom2.js  # Manipulación del DOM para COP a USD
+│   │   ├── actualHora.js  # Función para actualizar la hora en el DOM
+│   ├── style.css  # Estilos de la aplicación
+│   ├── main.js  # Punto de entrada principal
+│── index.html  # Página principal
+│── README.md  # Documentación del proyecto
 
 📜 Explicación del Código
 
-🌎 Conversión de Moneda (convert1.js)
+🔹 function1.js (Conversión de USD a COP)
 
-Esta función obtiene la tasa de cambio desde la API y convierte el valor ingresado de USD a COP.
+Esta función obtiene la tasa de cambio actual desde la API y multiplica el valor ingresado por la tasa obtenida.
 
-🖥️ Conexión con el DOM (dom1.js)
+export const convert1 = async (value) => {
+    try {
+        const answer = await fetch("https://v6.exchangerate-api.com/v6/5047b68756ab86b1930cc413/latest/USD");
+        if (!answer.ok) {
+            throw new Error(`Error en la API: ${answer.status}`);
+        }
+        const data = await answer.json();
+        const change = data.conversion_rates.COP;
+        return (value * change).toFixed(1);
+    } catch (error) {
+        console.error("ERROR al obtener los datos", error);
+        return "0";
+    }
+};
 
-Esta función actualiza la interfaz con el resultado de la conversión cuando el usuario introduce un valor.
+🔹 dom1.js (Manipulación del DOM para USD a COP)
 
-⏰ Mostrar la Hora Actual (actualHora.js)
+import { convert1 } from "../components/function1";
 
-Esta función actualiza el DOM con la fecha y hora actual en tiempo real.
+export const values1 = () => {
+    const converter1 = document.querySelector('.converter1');
+    if (!converter1) return;
 
-🎨 Estilos CSS (style.css)
+    const num1 = converter1.querySelector('#usdInput1');
+    const result = converter1.querySelector('#copOutput1');
 
-El diseño está optimizado con modo oscuro y los inputs son más anchos para mejorar la usabilidad.
+    const updateConversion = async () => {
+        const value = parseFloat(num1.value);
+        result.value = isNaN(value) || value < 0 ? "0" : await convert1(value);
+    };
 
-📌 Estructura del Proyecto
+    num1.addEventListener("input", updateConversion);
+    updateConversion();
+};
 
-📦 conversor-usd-cop  
- ┣ 📂 components  
- ┃ ┣ 📜 function1.js  
- ┃ ┗ 📜 function2.js  
- ┣ 📂 DOMcomponents  
- ┃ ┣ 📜 dom1.js  
- ┃ ┣ 📜 dom2.js  
- ┃ ┗ 📜 actualHora.js  
- ┣ 📜 index.js  
- ┣ 📜 style.css  
- ┣ 📜 README.md  
- ┣ 📜 package.json  
- ┗ 📜 vite.config.js  
+🔹 actualHora.js (Actualización de la hora en el DOM)
 
-🤝 Contribuciones
+export const updateTimeDOM = () => {
+    const dateElement = document.querySelector('#time');
+    if (!dateElement) return;
 
-¡Las contribuciones son bienvenidas! Puedes:✅ Abrir un issue 🐞✅ Hacer un fork y enviar un pull request 🚀
+    const updateTime = () => {
+        const now = new Date();
+        dateElement.textContent = now.toLocaleString();
+    };
 
-📜 Licencia
+    updateTime();
+    setInterval(updateTime, 1000); // Actualiza cada segundo
+};
 
-Este proyecto está bajo la licencia MIT. Puedes usarlo libremente.
+📦 Instalación y Ejecución
 
-🎉 ¡Gracias por usar este conversor de moneda! 💰✨
+Clona el repositorio:
 
+git clone https://github.com/tu-usuario/currency-converter-app.git
+
+Ingresa al directorio del proyecto:
+
+cd currency-converter-app
+
+Instala las dependencias:
+
+npm install
+
+Ejecuta la aplicación en modo desarrollo:
+
+npm run dev
+
+Abre en el navegador: La aplicación estará disponible en http://localhost:5173
+
+📌 Contribuciones
+
+Si deseas contribuir al proyecto:
+
+Realiza un fork del repositorio.
+
+Crea una nueva rama (git checkout -b nueva-funcionalidad).
+
+Realiza tus cambios y haz un commit (git commit -m 'Agregada nueva funcionalidad').
+
+Sube los cambios (git push origin nueva-funcionalidad).
+
+Abre un Pull Request.
+
+📃 Licencia
+
+Este proyecto está bajo la licencia MIT, lo que significa que puedes usarlo, modificarlo y distribuirlo libremente.
