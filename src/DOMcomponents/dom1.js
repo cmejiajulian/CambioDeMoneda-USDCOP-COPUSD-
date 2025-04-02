@@ -13,7 +13,7 @@ export const values1 = () => {
             result.value = "0"; // Si el número es inválido, muestra 0
         } else {
             const convertedValue = await convert1(value); // Llama a la función de conversión
-            result.value = convertedValue; // Muestra el resultado
+            result.value = convertedValue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); // Aplica formato; // Muestra el resultado
         }
     };
 
