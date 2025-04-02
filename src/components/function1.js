@@ -1,19 +1,20 @@
-const API_KEY = import.meta.VITE_EXCHANGE_API_KEY
+// Archivo: function1.js
+const API_KEY = import.meta.env.VITE_EXCHANGE_API_KEY;
+
+
 const API_URL = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/USD`;
+
 export const convertUsdToCop = async (value) => {
     try {
-        const answer = await fetch(API_URL);
-        if (!answer.ok) {
-            throw new Error(`Error en la API: ${answer.status}`);
-        }
-        const data = await answer.json();
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`Error en la API: ${response.status}`);
+        const data = await response.json();
         const exchangeRate = data.conversion_rates.COP;
-        const operation = value * exchangeRate;
-
-        console.log(`${value} USD equivale a ${operation.toFixed(1)} COP`);
-        return operation.toFixed(1); // 🔹 AHORA DEVUELVE EL RESULTADO CORRECTAMENTE
+        return (value * exchangeRate).toFixed(2);
     } catch (error) {
-        console.log("ERROR al obtener los datos");
-        return "0"; // 🔹 En caso de error, devuelve "0" en lugar de `undefined`
+        console.error("ERROR al obtener los datos:", error);
+        return "0";
     }
 };
+
+console.log("API Key:", import.meta.env.VITE_EXCHANGE_API_KEY);
